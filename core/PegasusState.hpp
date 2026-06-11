@@ -401,6 +401,7 @@ namespace pegasus
       private:
         void onBindTreeEarly_() override;
         void onBindTreeLate_() override;
+        void dumpDebugContent_(std::ostream & output) const override;
 
         Action::ItrType preExecute_(PegasusState* state, Action::ItrType action_it);
         Action::ItrType postExecute_(PegasusState* state, Action::ItrType action_it);

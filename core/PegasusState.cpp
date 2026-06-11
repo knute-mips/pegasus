@@ -1310,4 +1310,15 @@ namespace pegasus
         Rvzicsrind::addCSRRegisterCallbacks<XLEN>(this);
     }
 
+    void PegasusState::dumpDebugContent_(std::ostream & output) const
+    {
+        output << "HartID  : " << hart_id_ << std::endl;
+        output << "PC      : " << HEX16(pc_) << std::endl;
+        output << "NEXT PC : " << HEX16(next_pc_) << std::endl;
+        output << "PRIV    : " << priv_mode_ << std::endl;
+        output << "VIRT    : " << virtual_mode_ << std::endl;
+        output << "EXCEPT  : " << HEX8(current_exception_) << std::endl;
+        output << "VEC CFG : " << vector_config_ << std::endl;
+    }
+
 } // namespace pegasus
