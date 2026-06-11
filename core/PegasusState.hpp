@@ -434,9 +434,6 @@ namespace pegasus
         //! Hart ID
         const HartId hart_id_;
 
-        // VLEN (128, 256, 512, 1024 or 2048 bits)
-        const uint32_t vlen_;
-
         // Path to register JSONs
         const std::string reg_json_file_path_;
 
@@ -544,6 +541,9 @@ namespace pegasus
             {"csrrc", MAVIS_UID_CSRRC},     {"csrrwi", MAVIS_UID_CSRRWI},
             {"csrrsi", MAVIS_UID_CSRRSI},   {"csrrci", MAVIS_UID_CSRRCI},
             {"hlvx.hu", MAVIS_UID_HLVX_HU}, {"hlvx.wu", MAVIS_UID_HLVX_WU}};
+
+        // VLEN (128, 256, 512, 1024 or 2048 bits)
+        const uint32_t vlen_;
 
         // Mavis
         std::unique_ptr<MavisType> mavis_;

@@ -72,10 +72,19 @@ namespace pegasus
         }
     }
 
+    uint32_t getVLENB(const uint32_t vlenb_param,
+                      const mavis::extension_manager::riscv::RISCVExtensionManager & ext_man)
+    {
+        if (ext_man.isEnabled("zvl1024b"))
+        {
+            return 1024;
+        }
+        return vlenb_param;
+    }
+
     PegasusState::PegasusState(sparta::TreeNode* hart_tn, const PegasusStateParameters* p) :
         sparta::Unit(hart_tn),
         hart_id_(p->hart_id),
-        vlen_(p->vlen),
         reg_json_file_path_(p->reg_json_file_path),
         ilimit_(getInstLimit(hart_tn->getRoot(), p->ilimit)),
         quantum_(p->quantum),
@@ -102,6 +111,7 @@ namespace pegasus
                              ->getParameterValueAs<std::string>("uarch_file_path")),
         extension_manager_(mavis::extension_manager::riscv::RISCVExtensionManager::fromISA(
             isa_string_, isa_file_path_ + std::string("/riscv_isa_spec.json"), isa_file_path_)),
+        vlen_(getVLENB(p->vlen, extension_manager_)),
         hypervisor_enabled_(extension_manager_.isEnabled("h")),
         zicntr_enabled_(extension_manager_.isEnabled("zicntr")),
         inst_logger_(hart_tn, "inst", "Pegasus Instruction Logger"),
@@ -126,6 +136,13 @@ namespace pegasus
         }
 
         setPcAlignment_();
+
+        // Nice warning in case someone is using zvl1024b extension
+        // AND didn't change/muck with the vlen parameter
+        if ((p->vlen != vlen_) && extension_manager_.isEnabled("zvl1024b")) {
+            std::cout << "PEGASUS: Warning: vlenb parameter ignored due to zvl1024b extension provided"
+                      << std::endl;
+        }
 
         // Set up register sets
         const std::string reg_json_file_path =
