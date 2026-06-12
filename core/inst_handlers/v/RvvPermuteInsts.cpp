@@ -555,11 +555,12 @@ namespace pegasus
         // Need conditional to avoid getting an invalid Rs1
         const uint32_t rs1_val = (opMode.src1 == OperandMode::Mode::I) ? 0 : inst->getRs1();
 
-        Elements<Element<is16 ? 16 : elemWidth>, false> elems_vs1{state, inst->getVectorConfig(), rs1_val};
+        Elements<Element<is16 ? 16 : elemWidth>, false> elems_vs1{state, inst->getVectorConfig(),
+                                                                  rs1_val};
         Elements<Element<elemWidth>, false> elems_vd{state, inst->getVectorConfig(), inst->getRd()};
-        size_t elm = opMode.src1 == OperandMode::Mode::I ? inst->getImmediate()
-                   : opMode.src1 == OperandMode::Mode::X ? READ_INT_REG<XLEN>(state, rs1_val)
-                                                         : 0;
+        size_t elm = opMode.src1 == OperandMode::Mode::I   ? inst->getImmediate()
+                     : opMode.src1 == OperandMode::Mode::X ? READ_INT_REG<XLEN>(state, rs1_val)
+                                                           : 0;
 
         auto execute = [&](auto iter, const auto & end)
         {

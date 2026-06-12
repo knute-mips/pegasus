@@ -139,9 +139,11 @@ namespace pegasus
 
         // Nice warning in case someone is using zvl1024b extension
         // AND didn't change/muck with the vlen parameter
-        if ((p->vlen != vlen_) && extension_manager_.isEnabled("zvl1024b")) {
-            std::cout << "PEGASUS: Warning: vlenb parameter ignored due to zvl1024b extension provided"
-                      << std::endl;
+        if ((p->vlen != vlen_) && extension_manager_.isEnabled("zvl1024b"))
+        {
+            std::cout
+                << "PEGASUS: Warning: vlenb parameter ignored due to zvl1024b extension provided"
+                << std::endl;
         }
 
         // Set up register sets
