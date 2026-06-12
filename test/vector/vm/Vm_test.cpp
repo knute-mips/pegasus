@@ -121,7 +121,7 @@ class VmInstructionTester : public PegasusInstructionTester
         VLEN v2_val = {1, 0, 1, 0, 1, 1, 1, 0};
         VLEN v0_val = {1, 0, 0, 255, 1, 0, 1, 0};
         VLEN v1_val = {0, 0, 0, 0, 0, 0, 0, 0};
-        VLEN vd_val = {0, 0, 0, 255, 0, 0, 0, 0};
+        const VLEN vd_val = {0, 0, 0, 255, 0, 0, 0, 0};
         WRITE_VEC_REG<VLEN>(state, pegasus::V2, v2_val);
         WRITE_VEC_REG<VLEN>(state, pegasus::V0, v0_val);
         WRITE_VEC_REG<VLEN>(state, pegasus::V1, v1_val);
@@ -152,10 +152,10 @@ class VmInstructionTester : public PegasusInstructionTester
         state->getVectorConfig()->setVSTART(vstart);
         state->getVectorConfig()->setVL(vl);
 
-        VLEN v2_val = {0x91, 0, 0, 0, 0, 0, 0, 0};
         VLEN v0_val = {0xEB, 0, 0, 0, 0, 0, 0, 0};
+        VLEN v2_val = {0x91, 0, 0, 0, 0, 0, 0, 0};
         VLEN v4_val = {9, 8, 7, 6, 5, 4, 3, 2};
-        VLEN vd_val = {0, 1, 7, 1, 5, 1, 1, 1};
+        const VLEN vd_val = {2, 2, 1, 2, 1, 2, 2, 2};
         WRITE_VEC_REG<VLEN>(state, pegasus::V2, v2_val);
         WRITE_VEC_REG<VLEN>(state, pegasus::V0, v0_val);
         WRITE_VEC_REG<VLEN>(state, pegasus::V4, v4_val);
@@ -188,7 +188,7 @@ class VmInstructionTester : public PegasusInstructionTester
 
         VLEN v0_val = {0x8F, 0, 0, 0, 0, 0, 0, 0};
         VLEN v1_val = {8, 8, 8, 8, 8, 8, 8, 8};
-        VLEN vd_val = {8, 8, 2, 3, 8, 8, 8, 7};
+        const VLEN vd_val = {8, 8, 2, 3, 8, 8, 8, 7};
         WRITE_VEC_REG<VLEN>(state, pegasus::V0, v0_val);
         WRITE_VEC_REG<VLEN>(state, pegasus::V1, v1_val);
         opcode = vidvOp(pegasus::V1, 0); // masked
