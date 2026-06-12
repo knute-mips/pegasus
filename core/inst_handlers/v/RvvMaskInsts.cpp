@@ -351,7 +351,7 @@ namespace pegasus
             {
                 size_t idx = bit_iter.getIndex();
                 // update parallel prefix sun for each active element of vd till current index
-                if (!inst->getVM()) // masked
+                if (inst->getVM()) // masked
                 {
                     execute(iter_v0,
                             MaskBitIterator{&elems_v0,

@@ -585,8 +585,8 @@ namespace pegasus
          */
         ElemType getElement(size_t index) const
         {
-            uint32_t reg_id = reg_id_ + index / (config_->getVLEN() / ElemType::elem_width);
-            uint32_t idx = index % (config_->getVLEN() / ElemType::elem_width);
+            const uint32_t reg_id = reg_id_ + index / (config_->getVLEN() / ElemType::elem_width);
+            const uint32_t idx = index % (config_->getVLEN() / ElemType::elem_width);
             ElemType elem{state_, reg_id, idx};
             if constexpr (isMaskElems)
             {
